@@ -5,7 +5,7 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System.Drawing;
 
-namespace DemoQaFrontEnd.pages
+namespace EShop.pages
 {
     public abstract class BaseClass
     {
