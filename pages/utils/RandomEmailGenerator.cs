@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EShop.pages.utils
 {
-    public class RandomEmailGenerator
+    public class RandomStringGenerator
     {
         private static readonly string Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
