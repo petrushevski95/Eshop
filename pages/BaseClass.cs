@@ -3,6 +3,7 @@ using OpenQA.Selenium.BiDi.Modules.BrowsingContext;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using System.Drawing;
 
 namespace DemoQaFrontEnd.pages
 {
@@ -53,6 +54,55 @@ namespace DemoQaFrontEnd.pages
             IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(locator));
         }
 
-       
+        protected string getColor(By locator, string property)
+        {
+            IWebElement element = driver.FindElement(locator);
+            string cssValue = element.GetCssValue(property);
+
+            // Check if the cssValue is in rgb format
+            if (cssValue.StartsWith("rgb"))
+            {
+                // Remove the "rgb(" or "rgba(" and the closing ")"
+                cssValue = cssValue.Replace("rgb(", "").Replace("rgba(", "").Replace(")", "");
+
+                // Split the string into R, G, B (and optionally A) components
+                var colors = cssValue.Split(',');
+
+                // Parse the R, G, B values
+                int r = int.Parse(colors[0]);
+                int g = int.Parse(colors[1]);
+                int b = int.Parse(colors[2]);
+
+                // Convert to Color object
+                Color color = Color.FromArgb(r, g, b);
+
+                // Return as hex string
+                return ColorTranslator.ToHtml(color);
+            }
+            else
+            {
+                // Handle case for hex format color
+                Color color = ColorTranslator.FromHtml(cssValue);
+                return ColorTranslator.ToHtml(color);
+            }
+        }
+
+        protected string getPseudoElementStyle(By locator, string pseudoElement, string property)
+        {
+            IWebElement element = driver.FindElement(locator);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            string script = $@" var elem = arguments[0];var pseudoElem = '{pseudoElement}'; 
+                                var style = window.getComputedStyle(elem, pseudoElem).getPropertyValue('{property}');
+                                return style;";
+            string value = (string)js.ExecuteScript(script, element);
+            return value;
+        }
+
+        public void clearField(By locator)
+        {
+            driver.FindElement(locator).Clear();
+        }
     }
 }
+
+

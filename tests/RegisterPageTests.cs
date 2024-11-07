@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EShop.pages;
+using EShop.pages.utils;
 
 namespace EShop.tests
 {
@@ -17,8 +18,7 @@ namespace EShop.tests
 
         [SetUp]
         public void SetUp()
-        {
-          
+        {          
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
 
@@ -36,61 +36,31 @@ namespace EShop.tests
         public void successfulRegisterTest()
         {
             registerPage.enterFirstAndLastName("Test Test");
-            registerPage.enterEmail("test123@mail.com");
+            registerPage.enterEmail(RandomEmailGenerator.generateRandomAlphanumeric(8) + "@mail.com");
             registerPage.enterPassword("Password123");
             registerPage.clickOnRegisterButton();
             Assert.That(registerPage.isOnTheLoginPage(), Is.True);
         }
 
         [Test]
-        public void unsuccessfulRegisterEmptyFirstNameAndLastNameField()
+        public void errorMessagesEmptyFields()
         {
-            registerPage.enterEmail("test123@mail.com");
-            registerPage.enterPassword("Password123");
             registerPage.clickOnRegisterButton();
             Assert.That(registerPage.getEnterFirstNameAndLastNameErrorMessage(), Is.EqualTo("Please enter First and Last name"));
-        }
-        
-        [Test]
-        public void unsuccessfulRegisterEmptyEmailField()
-        {
-            registerPage.enterFirstAndLastName("Test Test");
-            registerPage.enterPassword("Password123");
-            registerPage.clickOnRegisterButton();
             Assert.That(registerPage.getEmailErrorMessage(), Is.EqualTo("Email is required"));
-        }
-
-        [Test]
-        public void unsuccessfulRegisterEmptyPaswordField()
-        {
-            registerPage.enterFirstAndLastName("Test Test");
-            registerPage.enterEmail("test123@mail.com"); 
-            registerPage.clickOnRegisterButton();
             Assert.That(registerPage.getPasswordErrorMessage(), Is.EqualTo("Please enter password"));
         }
-
+       
         [Test]
-        public void unsuccessfulRegisterInvalidFirstNameAndLastNameField()
+        public void errorMessagesInvalidFields()
         {
             registerPage.enterFirstAndLastName("TestTest");
-            registerPage.clickOnRegisterButton();
-            Assert.That(registerPage.getEnterFirstNameAndLastNameErrorMessage(), Is.EqualTo("Please enter First and Last name separated by a space"));
-        }
-
-        [Test]
-        public void unsuccessfulRegisterInvalidEmailField()
-        {
             registerPage.enterEmail("test123.mail.com");
-            registerPage.clickOnRegisterButton();
-            Assert.That(registerPage.getEmailErrorMessage(), Is.EqualTo("Email is not valid email"));
-        }
-
-        [Test]
-        public void unsuccessfulRegisterInvalidPasswordField()
-        {
             registerPage.enterPassword("test");
             registerPage.clickOnRegisterButton();
-            Assert.That(registerPage.getPasswordErrorMessage(), Is.EqualTo("Email is not valid email"));
+            Assert.That(registerPage.getEnterFirstNameAndLastNameErrorMessage(), Is.EqualTo("Please enter First and Last name separated by a space"));
+            Assert.That(registerPage.getEmailErrorMessage(), Is.EqualTo("Email is not valid email"));
+            Assert.That(registerPage.getPasswordErrorMessage(), Is.EqualTo("Your password must be at least 8 symbols and should include uppercase and lowercase letters and numbers."));
         }
 
         [Test]
@@ -100,8 +70,22 @@ namespace EShop.tests
             registerPage.enterEmail("test123@mail.com");
             registerPage.enterPassword("Password123");
             registerPage.clickOnRegisterButton();
-            Assert.That(registerPage.getValidationErrorMessage(), Is.EqualTo("User already exists"));
+            Assert.That(registerPage.getValidationErrorMessage(), Is.EqualTo("User already exists."));
         }
+
+        [Test]
+        public void borderColorAsserts()
+        {
+            registerPage.enterFirstAndLastName("TestTest");
+            registerPage.clickEmailField();
+            Assert.That(registerPage.getBorderFirstNameAndLastNameFieldBorderColor(), Is.EqualTo("#a4262c"));
+            registerPage.clearFistNameAndLastNameField();
+            registerPage.enterFirstAndLastName("Test Test");
+            registerPage.clickEmailField();
+            Assert.That(registerPage.getBorderFirstNameAndLastNameFieldBorderColor(), Is.EqualTo("#8a8886"));
+        }
+
+
 
 
     }

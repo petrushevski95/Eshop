@@ -71,7 +71,20 @@ namespace EShop.pages
             return getElementText(validationErrorMessage);
         }
 
+        public void clickEmailField()
+        {
+            clickOnElement(emailField);
+        }
 
+        public string getBorderFirstNameAndLastNameFieldBorderColor()
+        {
+            return getPseudoElementStyle(firstNameAndLastNameField, "::after", "--INTERNAL--kendo-input-border");
+        } 
+
+        public void clearFistNameAndLastNameField()
+        {
+            clearField(firstNameAndLastNameField);
+        }
     }
     }
 
