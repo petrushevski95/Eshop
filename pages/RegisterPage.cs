@@ -1,6 +1,7 @@
 ﻿using DemoQaFrontEnd.pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools.V128.Page;
+using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,8 @@ namespace EShop.pages
         private readonly By emailErrorMessage = By.Id("Email-error");
         private readonly By passwordErrorMessage = By.Id("Password-error");
         private readonly By validationErrorMessage = By.XPath("/html/body/main/div/span");
-        public RegisterPage(IWebDriver driver) : base(driver) { }
+
+        public RegisterPage(IWebDriver driver, Actions actions) : base(driver, actions) { }
 
         public void goToRegisterPage()
         {

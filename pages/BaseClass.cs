@@ -10,8 +10,14 @@ namespace EShop.pages
     public abstract class BaseClass
     {
         protected IWebDriver driver;
-        public BaseClass(IWebDriver driver) { this.driver = driver; }
+        protected Actions actions;
 
+        public BaseClass(IWebDriver driver, Actions actions) 
+        { 
+            this.driver = driver;
+            this.actions = actions
+        }
+            
         protected void navigateTo(string url)
         {
             driver.Navigate().GoToUrl(url);
