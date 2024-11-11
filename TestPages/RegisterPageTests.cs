@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EShop.pages;
 using EShop.pages.utils;
+using OpenQA.Selenium.Interactions;
 
 namespace EShop.tests
 {
@@ -15,6 +16,7 @@ namespace EShop.tests
     {
         private IWebDriver driver;
         private RegisterPage registerPage;
+        private Actions actions;
 
         [SetUp]
         public void SetUp()
@@ -22,7 +24,7 @@ namespace EShop.tests
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
 
-            registerPage = new RegisterPage(driver);
+            registerPage = new RegisterPage(driver, actions);
             registerPage.goToRegisterPage();
         }
 
@@ -36,7 +38,7 @@ namespace EShop.tests
         public void successfulRegisterTest()
         {
             registerPage.enterFirstAndLastName("Test Test");
-            registerPage.enterEmail(RandomEmailGenerator.generateRandomAlphanumeric(8) + "@mail.com");
+            registerPage.enterEmail(RandomStringGenerator.generateRandomAlphanumeric(8) + "@mail.com");
             registerPage.enterPassword("Password123");
             registerPage.clickOnRegisterButton();
             Assert.That(registerPage.isOnTheLoginPage(), Is.True);
@@ -74,15 +76,15 @@ namespace EShop.tests
         }
 
         [Test]
-        public void borderColorAsserts()
+        public void fieldBorderColorAssert()
         {
             registerPage.enterFirstAndLastName("TestTest");
             registerPage.clickEmailField();
-            Assert.That(registerPage.getBorderFirstNameAndLastNameFieldBorderColor(), Is.EqualTo("#a4262c"));
+            Assert.That(registerPage.getFirstNameAndLastNameFieldBorderColor(), Is.EqualTo("#a4262c"));
             registerPage.clearFistNameAndLastNameField();
             registerPage.enterFirstAndLastName("Test Test");
             registerPage.clickEmailField();
-            Assert.That(registerPage.getBorderFirstNameAndLastNameFieldBorderColor(), Is.EqualTo("#8a8886"));
+            Assert.That(registerPage.getFirstNameAndLastNameFieldBorderColor(), Is.EqualTo("#8a8886"));
         }
 
 
