@@ -15,7 +15,7 @@ namespace EShop.pages
         public BaseClass(IWebDriver driver, Actions actions) 
         { 
             this.driver = driver;
-            this.actions = actions
+            this.actions = actions;
         }
             
         protected void navigateTo(string url)
@@ -104,10 +104,18 @@ namespace EShop.pages
             return value;
         }
 
-        public void clearField(By locator)
+        protected void clearField(By locator)
         {
             driver.FindElement(locator).Clear();
         }
+
+        protected void pressEnterKey(By locator) 
+        {
+            IWebElement element = driver.FindElement(locator);
+            element.SendKeys(Keys.Enter);      
+        }
+
+        
     }
 }
 

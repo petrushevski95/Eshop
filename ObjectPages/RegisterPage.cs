@@ -1,5 +1,4 @@
-﻿using DemoQaFrontEnd.pages;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools.V128.Page;
 using OpenQA.Selenium.Interactions;
 using System;
@@ -78,7 +77,7 @@ namespace EShop.pages
             clickOnElement(emailField);
         }
 
-        public string getBorderFirstNameAndLastNameFieldBorderColor()
+        public string getFirstNameAndLastNameFieldBorderColor()
         {
             return getPseudoElementStyle(firstNameAndLastNameField, "::after", "--INTERNAL--kendo-input-border");
         } 
