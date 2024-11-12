@@ -12,7 +12,7 @@ using OpenQA.Selenium.Interactions;
 namespace EShop.tests
 {
     [TestFixture]
-    internal class RegisterPageTests
+    public class RegisterPageTests
     {
         private IWebDriver driver;
         private RegisterPage registerPage;
@@ -45,7 +45,7 @@ namespace EShop.tests
         }
 
         [Test]
-        public void errorMessagesEmptyFields()
+        public void errorMessagesEmptyFieldsTest()
         {
             registerPage.clickOnRegisterButton();
             Assert.That(registerPage.getEnterFirstNameAndLastNameErrorMessage(), Is.EqualTo("Please enter First and Last name"));
@@ -54,7 +54,7 @@ namespace EShop.tests
         }
        
         [Test]
-        public void errorMessagesInvalidFields()
+        public void errorMessagesInvalidFieldsTest()
         {
             registerPage.enterFirstAndLastName("TestTest");
             registerPage.enterEmail("test123.mail.com");
@@ -76,7 +76,7 @@ namespace EShop.tests
         }
 
         [Test]
-        public void fieldBorderColorAssert()
+        public void fieldBorderColorTest()
         {
             registerPage.enterFirstAndLastName("TestTest");
             registerPage.clickEmailField();
@@ -86,12 +86,6 @@ namespace EShop.tests
             registerPage.clickEmailField();
             Assert.That(registerPage.getFirstNameAndLastNameFieldBorderColor(), Is.EqualTo("#8a8886"));
         }
-
-
-
-
     }
-    
-
 }
 

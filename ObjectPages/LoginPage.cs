@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EShop.pages
 {
-    public class LoginPage : BaseClass
+    public class LoginPage : BasePage
     {
         private readonly By emailField = By.Id("Email");
         private readonly By passwordField = By.Id("Password");
@@ -82,7 +82,5 @@ namespace EShop.pages
         {
             return getPseudoElementStyle(emailField, "::after", "--INTERNAL--kendo-input-border");
         }
-
-
     }
 }

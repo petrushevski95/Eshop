@@ -7,12 +7,12 @@ using System.Drawing;
 
 namespace EShop.pages
 {
-    public abstract class BaseClass
+    public abstract class BasePage
     {
         protected IWebDriver driver;
-        protected Actions actions;
+        protected Actions actions;      
 
-        public BaseClass(IWebDriver driver, Actions actions) 
+        public BasePage(IWebDriver driver, Actions actions) 
         { 
             this.driver = driver;
             this.actions = actions;
@@ -40,7 +40,15 @@ namespace EShop.pages
 
         protected bool isElementDisplayed(By locator)
         {
-            return driver.FindElement(locator).Displayed;
+            try
+            {
+                IWebElement element = driver.FindElement(locator);
+                return element.Displayed; 
+            }
+            catch (NoSuchElementException)
+            {
+                return false;  
+            }     
         }
 
         protected void sendTextToField(By locator, string value)
@@ -115,7 +123,56 @@ namespace EShop.pages
             element.SendKeys(Keys.Enter);      
         }
 
-        
+        protected string getTextCharacterAsString(By locator, int index)
+        {
+            string stringElement = driver.FindElement(locator).Text;
+            return stringElement[index].ToString();
+        }
+
+        protected List<IWebElement> getElementsList(By locator)
+        {
+            return driver.FindElements(locator).ToList();
+        }
+
+        protected IWebElement getElementFromList(By locator, int index)
+        {
+            List<IWebElement> elements = driver.FindElements(locator).ToList();
+            if (index >= 0 && index < elements.Count)
+            {
+                return elements[index]; 
+            }
+            else
+            {               
+                throw new ArgumentOutOfRangeException(nameof(index), "The provided index is out of range.");
+            }
+        }
+
+        protected bool isElementsListEmpty(By locator)
+        {
+            try
+            {            
+                List<IWebElement> webElements = driver.FindElements(locator).ToList();               
+                if (webElements.Count == 0)
+                {
+                    return false; 
+                }             
+                foreach (IWebElement element in webElements)
+                {
+                    if (!element.Displayed)
+                    {
+                        return false; 
+                    }
+                }              
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception Type: {ex.GetType().Name}");
+                return false;
+            }
+        }
+
+
     }
 }
 
