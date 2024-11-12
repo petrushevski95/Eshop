@@ -171,8 +171,6 @@ namespace EShop.pages
                 return false;
             }
         }
-
-
     }
 }
 
