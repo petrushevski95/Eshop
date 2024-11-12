@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace EShop.tests
 {
     [TestFixture]
-    internal class LoginPageTests
+    public class LoginPageTests
     {   
         private LoginPage loginPage;
         private IWebDriver driver;
@@ -74,7 +74,7 @@ namespace EShop.tests
         }
 
         [Test]
-        public void fieldBorderColorAssert()
+        public void fieldBorderColorTest()
         {
             loginPage.clearEmailField();
             loginPage.enterEmail("test123mail.com");

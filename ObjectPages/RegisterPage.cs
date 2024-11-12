@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EShop.pages
 {
-    public class RegisterPage : BaseClass
+    public class RegisterPage : BasePage
     {
         private readonly By firstNameAndLastNameField = By.Id("FirstAndLastName");
         private readonly By emailField = By.Id("Email");
