@@ -19,7 +19,6 @@ namespace EShop.TestPages
         private HomePage homePage;
         private Actions actions;
 
-
         [SetUp]
         public void setUp()
         {
