@@ -89,7 +89,6 @@ namespace EShop.TestPages
         {
             homePage.scrollDownToCategories();
             homePage.clickDownloadProductCatalogButton();
-            Thread.Sleep(1000);
             Assert.That(homePage.isOnTheProductCatalogPage(), Is.True);
         }
     }
