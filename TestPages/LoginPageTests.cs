@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EShop.tests
+namespace EShop.TestPages
 {
     [TestFixture]
     public class LoginPageTests

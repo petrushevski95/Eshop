@@ -51,19 +51,46 @@ namespace EShop.TestPages
             homePage.enterTextInSearchBar("lights");
             homePage.pressEnterKey();
             Assert.That(homePage.isSearchResultCountDisplayed(), Is.True);
-            Assert.That(homePage.getSearchResultNumber(0), Is.EqualTo("3"));
+            Assert.That(homePage.getSearchResultNumber(), Is.EqualTo("3"));
             Assert.That(homePage.isCategoriesNameDisplayed(), Is.True);
             Assert.That(homePage.isItemListEmpty(), Is.False);
 
         }
 
         [Test]
-        public void nextContentButtonTest() 
+        public void imageContentTest() 
         {
-            homePage.clickNextButton();
+            homePage.clickNextImageButton();
             Assert.That(homePage.isHomeImageDisplayed(1), Is.True);
         }
 
-      
+        [Test]
+        public void topPicksTest()
+        {
+            homePage.scrollDownToTopPicks();
+            Assert.That(homePage.isTopPicksCategoryDisplayed(), Is.True);
+            homePage.clickNextPageCategoryButton();
+            homePage.clickTopPicksCategory(2);
+            Assert.That(homePage.isOnTheTopPicksCategoryPage(), Is.True);
+            
+        }
+
+        [Test]
+        public void categoriesTest()
+        {
+            homePage.scrollDownToCategories();
+            Assert.That(homePage.areCategoriesDisplayed(), Is.True);
+            homePage.clickBikeCategoryImage();
+            Assert.That(homePage.isOnTheBikeCategoryPage(), Is.True);
+        }   
+
+        [Test] 
+        public void downloadProductCatalogButton()
+        {
+            homePage.scrollDownToCategories();
+            homePage.clickDownloadProductCatalogButton();
+            Thread.Sleep(1000);
+            Assert.That(homePage.isOnTheProductCatalogPage(), Is.True);
+        }
     }
 }

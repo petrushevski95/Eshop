@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using EShop.ObjectPages.utils;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace EShop.pages
 
         public void goToLoginPage()
         {
-            navigateTo("https://demos.telerik.com/kendo-ui/eshop/Account/Login");
+            navigateTo(PageUrls.Login_Page_Url);
         }
 
         public void clearEmailField()
@@ -50,7 +51,7 @@ namespace EShop.pages
 
         public bool isOntheHomePage()
         {
-            return isOnThePage("https://demos.telerik.com/kendo-ui/eshop");
+            return isOnThePage(PageUrls.Home_Page_Url);
         }
 
         public void clickEmailField()
