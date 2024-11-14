@@ -54,7 +54,6 @@ namespace EShop.TestPages
             Assert.That(homePage.getSearchResultNumber(), Is.EqualTo("3"));
             Assert.That(homePage.isCategoriesNameDisplayed(), Is.True);
             Assert.That(homePage.isItemListEmpty(), Is.False);
-
         }
 
         [Test]
@@ -71,8 +70,7 @@ namespace EShop.TestPages
             Assert.That(homePage.isTopPicksCategoryDisplayed(), Is.True);
             homePage.clickNextPageCategoryButton();
             homePage.clickTopPicksCategory(2);
-            Assert.That(homePage.isOnTheTopPicksCategoryPage(), Is.True);
-            
+            Assert.That(homePage.isOnTheTopPicksCategoryPage(), Is.True);   
         }
 
         [Test]
