@@ -136,7 +136,5 @@ namespace EShop.ObjectPages
             waitUntilVisible(productCatalog, 5);
             return isElementDisplayed(productCatalog);
         }
-
-
     }
 }
