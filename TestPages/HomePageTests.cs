@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 using EShop.ObjectPages;
 
 namespace EShop.TestPages
-{
+{    
+    [TestFixture]
     public class HomePageTests
     {
         private LoginPage loginPage;
