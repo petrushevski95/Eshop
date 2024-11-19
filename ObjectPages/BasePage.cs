@@ -23,6 +23,12 @@ namespace EShop.pages
             driver.Navigate().GoToUrl(url);
         }
 
+        protected void moveAndClickOnTheElement(By locator)
+        {
+            IWebElement element = driver.FindElement(locator);
+            actions.MoveToElement(element).Click().Perform();
+        }
+
         protected void clickOnElement(By locator)
         {
             driver.FindElement(locator).Click();
@@ -62,10 +68,16 @@ namespace EShop.pages
             IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(locator));
         }
 
-        protected void waitUntilClicable(By locator, int seconds)
+        protected void waitUntilClickable(By locator, int seconds)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
             IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(locator));
+        }
+
+        protected bool IsElementEnabled(By locator)
+        {     
+                IWebElement element = driver.FindElement(locator);
+                return element.Enabled;       
         }
 
         protected string getColor(By locator, string property)
@@ -159,29 +171,21 @@ namespace EShop.pages
                 }
                 else
                 {
-
                     throw new ArgumentOutOfRangeException(nameof(index), "The provided index is out of range.");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Exception Type: {ex.GetType().Name}");
-
             }
         }
-
-
 
         protected bool isElementsListEmpty(By locator)
         {
             try
             {
                 List<IWebElement> webElements = driver.FindElements(locator).ToList();
-                if (webElements.Count == 0)
-                {
-                    return true;
-                }
-                return false;
+                return webElements.Count == 0;
             }
             catch (Exception ex)
             {
@@ -189,7 +193,6 @@ namespace EShop.pages
                 return false;
             }
         }
-drop-down-and-button-tests-added
 
         protected void scrollDown(int pixels)
         {
@@ -197,8 +200,34 @@ drop-down-and-button-tests-added
             js.ExecuteScript("window.scrollBy(0, arguments[0])", pixels);
         }
 
- main
+        // Combined dropdown and hover methods
+        protected List<IWebElement> getDropdownOptions(By locator) 
+        {
+            IWebElement dropdownElement = driver.FindElement(locator);
+            SelectElement select = new SelectElement(dropdownElement);
+            return select.Options.ToList();
+        }
+
+        protected void selectDropdownOption(By dropdownLocator, int optionIndex)
+        {
+            IWebElement dropdownElement = driver.FindElement(dropdownLocator); 
+            SelectElement select = new SelectElement(dropdownElement);
+            select.SelectByIndex(optionIndex);
+        }
+
+        protected string getDropdownOptionText(By dropdownLocator, int optionIndex)
+        {
+            IWebElement dropdownElement = driver.FindElement(dropdownLocator);
+            SelectElement select = new SelectElement(dropdownElement);
+            select.SelectByIndex(optionIndex);
+            IWebElement selectedOption = select.Options[optionIndex];
+            return selectedOption.Text;  
+        }
+
+        protected void HoverOverButton(By locator)
+        {
+            IWebElement buttonElement = driver.FindElement(locator);
+            actions.MoveToElement(buttonElement).Perform();
+        }
     }
 }
-
-
