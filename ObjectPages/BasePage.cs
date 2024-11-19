@@ -23,6 +23,12 @@ namespace EShop.pages
             driver.Navigate().GoToUrl(url);
         }
 
+        protected void moveAndClickOnTheElement(By locator)
+        {
+            IWebElement element = driver.FindElement(locator);
+            actions.MoveToElement(element).Click().Perform();
+        }
+
         protected void clickOnElement(By locator)
         {
             driver.FindElement(locator).Click();
@@ -62,13 +68,18 @@ namespace EShop.pages
             IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(locator));
         }
 
-        protected void waitUntilClicable(By locator, int seconds)
+        protected void waitUntilClickable(By locator, int seconds)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
             IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(locator));
         }
 
-        protected string getColor(By locator, string property)
+        protected bool IsElementEnabled(By locator)
+        {     
+                IWebElement element = driver.FindElement(locator);
+                return element.Enabled;       
+        }
+            protected string getColor(By locator, string property)
         {
             IWebElement element = driver.FindElement(locator);
             string cssValue = element.GetCssValue(property);
@@ -170,8 +181,6 @@ namespace EShop.pages
             }
         }
 
-
-
         protected bool isElementsListEmpty(By locator)
         {
             try
@@ -194,6 +203,35 @@ namespace EShop.pages
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollBy(0, arguments[0])", pixels);
+        }
+
+        protected List<IWebElement> getDropdownOptions(By locator) 
+        {
+            IWebElement dropdownElement = driver.FindElement(locator);
+            SelectElement select = new SelectElement(dropdownElement);
+            return select.Options.ToList();
+        }
+
+        protected void selectDropdownOption(By dropdownLocator, int optionIndex)
+        {
+            IWebElement dropdownElement = driver.FindElement(dropdownLocator); 
+            SelectElement select = new SelectElement(dropdownElement);
+            select.SelectByIndex(optionIndex);
+        }
+
+        protected string getDropdownOptionText(By dropdownLocator, int optionIndex)
+        {
+            IWebElement dropdownElement = driver.FindElement(dropdownLocator);
+            SelectElement select = new SelectElement(dropdownElement);
+            select.SelectByIndex(optionIndex);
+            IWebElement selectedOption = select.Options[optionIndex];
+            return selectedOption.Text;  
+        }
+
+        protected void HoverOverButton(By locator)
+        {
+            IWebElement buttonElement = driver.FindElement(locator);
+            actions.MoveToElement(buttonElement).Perform();
         }
     }
 }

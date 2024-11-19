@@ -27,6 +27,21 @@ namespace EShop.ObjectPages
         private readonly By categoriyNameTItle = By.XPath("/html/body/main/div/div[1]");
         private readonly By downloadProductCatalogButton = By.Id("download-catalog");
         private readonly By productCatalog = By.ClassName("trv-page-container");
+        private readonly By categoriesDropdown = By.XPath("//span[contains(text(), 'Categories')]");
+        private readonly By accessoriesDropdownButton = By.LinkText("Accessories");
+        private readonly By bikesDropdownButton = By.LinkText("Bikes");
+        private readonly By clothesDropdownButton = By.LinkText("Clothes");
+        private readonly By componentsDropdownButton = By.LinkText("Components");
+        private readonly By favouritesButton = By.XPath("//a[@href='/kendo-ui/eshop/Account/Favorites']");
+        private readonly By favouritesTitle = By.ClassName("favorites-title");
+        private readonly By contactsButton = By.XPath("//a[@href='/kendo-ui/eshop/Contacts']");
+        private readonly By contactTitle = By.ClassName("header-title");
+        private readonly By profileIcon = By.Id("profile-btn");
+        private readonly By profileDropdownButton = By.XPath("//a[@href='/kendo-ui/eshop/Account/Profile']");
+        private readonly By accountTitle = By.ClassName("header-title");
+
+
+
         public HomePage(IWebDriver driver, Actions actions) : base(driver, actions) { }
 
         public void enterTextInSearchBar(string text)
@@ -136,7 +151,130 @@ namespace EShop.ObjectPages
             waitUntilVisible(productCatalog, 5);
             return isElementDisplayed(productCatalog);
         }
+        public void clickCategoriesButton()
+        {
+            waitUntilVisible(categoriesDropdown, 5);
+            clickOnElement(categoriesDropdown);
+        }
+
+        public void clickAccessoriesButton()
+        {   
+            waitUntilVisible(accessoriesDropdownButton, 5);
+            clickOnElement(accessoriesDropdownButton);
+        }
+
+        public bool isOnTheAccessoriesPage()
+        {
+            return isElementDisplayed(categoriyNameTItle);
+        }
+
+        public string getAccessoriesTitleText()
+        {
+            return getElementText(categoriyNameTItle);
+        }
+
+        public void clicBikesButton()
+        {
+            waitUntilVisible(bikesDropdownButton, 5);
+            clickOnElement(bikesDropdownButton);
+        }
+
+        public bool isOnTheBikesPage()
+        {
+            return isElementDisplayed(categoriyNameTItle);
+        }
 
 
+        public string getBikesTitleText()
+        {
+            return getElementText(categoriyNameTItle);
+        }
+
+        public void clickClothesButton()
+        {
+            waitUntilVisible(clothesDropdownButton, 5);
+            clickOnElement(clothesDropdownButton);
+        }
+
+        public string getClothesTitleText()
+        {
+            return getElementText(categoriyNameTItle);
+        }
+
+        public bool isOnTheClothesPage()
+        {
+            return isElementDisplayed(categoriyNameTItle);
+        }
+
+        public void clickComponentsButton()
+        {
+            waitUntilVisible(componentsDropdownButton, 5);
+            clickOnElement(componentsDropdownButton);
+        }
+
+        public string getComponentsTitleText()
+        {
+            return getElementText(categoriyNameTItle);
+        }
+
+        public bool isOnTheComponentsPage()
+        {
+            return isElementDisplayed(categoriyNameTItle);
+        }
+
+        public void clickFavouritesButton()
+        {
+            clickOnElement(favouritesButton);
+        }
+
+        public bool isOnTheFavouritesPage()
+        {   
+            waitUntilVisible(favouritesButton, 5);
+            return isElementDisplayed(favouritesTitle);
+        }
+
+        public string getFavouritesTitleText()
+        {
+            return getElementText(favouritesTitle);
+        }
+
+        public void clickContactsButton()
+        {
+            clickOnElement(contactsButton);
+        }
+
+        public bool isOnTheContactsPage()
+        {
+            waitUntilVisible(contactTitle, 5);
+            return isElementDisplayed(contactTitle);
+        }
+
+        public string getContactTitleText()
+        {
+            return getElementText(contactTitle);
+        }
+
+        public void clickProfileButton()
+        {
+            clickOnElement(profileIcon);
+        }
+
+        public void clickProfileDropdownButton() 
+        {
+            waitUntilClickable(profileDropdownButton, 5);
+            clickOnElement(profileDropdownButton);
+        }
+
+        public bool isOnTheProfilesPage()
+        {
+            waitUntilVisible(accountTitle, 5);
+            return isElementDisplayed(accountTitle);
+        }
+
+        public string getProfileTitleText()
+        {
+            waitUntilVisible(accountTitle, 5);
+            return getElementText(accountTitle);
+        }
     }
 }

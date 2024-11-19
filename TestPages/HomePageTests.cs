@@ -11,6 +11,7 @@ using EShop.ObjectPages;
 
 namespace EShop.TestPages
 {
+    [TestFixture]
     public class HomePageTests
     {
         private LoginPage loginPage;
@@ -18,7 +19,6 @@ namespace EShop.TestPages
         private RegisterPage registerPage;
         private HomePage homePage;
         private Actions actions;
-
 
         [SetUp]
         public void setUp()
@@ -91,6 +91,69 @@ namespace EShop.TestPages
             homePage.clickDownloadProductCatalogButton();
             Thread.Sleep(1000);
             Assert.That(homePage.isOnTheProductCatalogPage(), Is.True);
+        }
+
+        [Test]
+        public void categoriesDropdownAccessoriesTest()
+        {
+            homePage.clickCategoriesButton();
+            homePage.clickAccessoriesButton();
+            Assert.That(homePage.getAccessoriesTitleText(), Is.EqualTo("Accessories"));
+            Assert.That(homePage.isOnTheAccessoriesPage(), Is.True);
+        }
+
+        [Test]
+        public void categoriesDropdownBikesTest()
+        {
+            homePage.clickCategoriesButton();
+            homePage.clicBikesButton();
+            Assert.That(homePage.getBikesTitleText(), Is.EqualTo("Bikes"));
+            Assert.That(homePage.isOnTheBikesPage(), Is.True);
+        }
+
+        [Test]
+        public void categoriesDropdwonClothesTest() 
+        {
+            homePage.clickCategoriesButton();
+            homePage.clickClothesButton();
+            Assert.That(homePage.getClothesTitleText(), Is.EqualTo("Clothes"));
+            Assert.That(homePage.isOnTheClothesPage(), Is.True);
+        }
+
+        [Test]
+        public void categoriesDropdwonComponentsTest()
+        {
+            homePage.clickCategoriesButton();
+            homePage.clickComponentsButton();
+            Assert.That(homePage.getClothesTitleText(), Is.EqualTo("Components"));
+            Assert.That(homePage.isOnTheComponentsPage(), Is.True);
+        }
+
+        [Test]
+        public void favouritesButtonTest()
+        {
+            homePage.clickFavouritesButton();
+            Assert.That(homePage.getFavouritesTitleText(), Is.EqualTo("Favourites"));
+            Assert.That(homePage.isOnTheFavouritesPage(), Is.True);
+        }
+
+        [Test]
+        public void contanctsButtonTest()
+        {
+            homePage.clickContactsButton();
+            Assert.That(homePage.getContactTitleText(), Is.EqualTo("Contacts"));
+            Assert.That(homePage.isOnTheContactsPage(), Is.True);
+        }
+
+
+
+        [Test]
+        public void profileDropdownProfileButtonTest()
+        {
+            homePage.clickProfileButton();
+            homePage.clickProfileDropdownButton();
+            Assert.That(homePage.getProfileTitleText(), Is.EqualTo("Profile"));
+            Assert.That(homePage.isOnTheProfilesPage(), Is.True);
         }
     }
 }
