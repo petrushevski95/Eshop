@@ -189,12 +189,15 @@ namespace EShop.pages
                 return false;
             }
         }
+drop-down-and-button-tests-added
 
         protected void scrollDown(int pixels)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollBy(0, arguments[0])", pixels);
         }
+
+ main
     }
 }
 
