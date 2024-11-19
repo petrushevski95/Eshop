@@ -9,7 +9,7 @@ using EShop.pages;
 using EShop.pages.utils;
 using OpenQA.Selenium.Interactions;
 
-namespace EShop.tests
+namespace EShop.TestPages
 {
     [TestFixture]
     public class RegisterPageTests

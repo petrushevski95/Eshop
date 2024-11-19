@@ -10,14 +10,14 @@ namespace EShop.pages
     public abstract class BasePage
     {
         protected IWebDriver driver;
-        protected Actions actions;      
+        protected Actions actions;
 
-        public BasePage(IWebDriver driver, Actions actions) 
-        { 
+        public BasePage(IWebDriver driver, Actions actions)
+        {
             this.driver = driver;
             this.actions = actions;
         }
-            
+
         protected void navigateTo(string url)
         {
             driver.Navigate().GoToUrl(url);
@@ -43,12 +43,12 @@ namespace EShop.pages
             try
             {
                 IWebElement element = driver.FindElement(locator);
-                return element.Displayed; 
+                return element.Displayed;
             }
             catch (NoSuchElementException)
             {
-                return false;  
-            }     
+                return false;
+            }
         }
 
         protected void sendTextToField(By locator, string value)
@@ -117,10 +117,10 @@ namespace EShop.pages
             driver.FindElement(locator).Clear();
         }
 
-        protected void pressEnterKey(By locator) 
+        protected void pressEnterKey(By locator)
         {
             IWebElement element = driver.FindElement(locator);
-            element.SendKeys(Keys.Enter);      
+            element.SendKeys(Keys.Enter);
         }
 
         protected string getTextCharacterAsString(By locator, int index)
@@ -139,31 +139,49 @@ namespace EShop.pages
             List<IWebElement> elements = driver.FindElements(locator).ToList();
             if (index >= 0 && index < elements.Count)
             {
-                return elements[index]; 
+                return elements[index];
             }
             else
-            {               
+            {
                 throw new ArgumentOutOfRangeException(nameof(index), "The provided index is out of range.");
             }
         }
 
+        protected void clickElementFromList(By locator, int index)
+        {
+            try
+            {
+                List<IWebElement> elements = driver.FindElements(locator).ToList();
+                if (index >= 0 && index < elements.Count)
+                {
+                    IWebElement elementToClick = elements[index];
+                    elementToClick.Click();
+                }
+                else
+                {
+
+                    throw new ArgumentOutOfRangeException(nameof(index), "The provided index is out of range.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception Type: {ex.GetType().Name}");
+
+            }
+        }
+
+
+
         protected bool isElementsListEmpty(By locator)
         {
             try
-            {            
-                List<IWebElement> webElements = driver.FindElements(locator).ToList();               
+            {
+                List<IWebElement> webElements = driver.FindElements(locator).ToList();
                 if (webElements.Count == 0)
                 {
-                    return false; 
-                }             
-                foreach (IWebElement element in webElements)
-                {
-                    if (!element.Displayed)
-                    {
-                        return false; 
-                    }
-                }              
-                return true;
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -171,6 +189,15 @@ namespace EShop.pages
                 return false;
             }
         }
+drop-down-and-button-tests-added
+
+        protected void scrollDown(int pixels)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollBy(0, arguments[0])", pixels);
+        }
+
+ main
     }
 }
 

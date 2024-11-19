@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using EShop.ObjectPages.utils;
+using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools.V128.Page;
 using OpenQA.Selenium.Interactions;
 using System;
@@ -24,7 +25,7 @@ namespace EShop.pages
 
         public void goToRegisterPage()
         {
-            navigateTo("https://demos.telerik.com/kendo-ui/eshop/Account/Register");
+            navigateTo(PageUrls.Register_Page_Url);
         }
 
         public void enterFirstAndLastName(string FirstNameAndLastName)
@@ -49,7 +50,7 @@ namespace EShop.pages
 
         public bool isOnTheLoginPage()
         {
-            return isOnThePage("https://demos.telerik.com/kendo-ui/eshop/Account/Login");
+            return isOnThePage(PageUrls.Login_Page_Url);
         }
 
         public string getEnterFirstNameAndLastNameErrorMessage()
@@ -87,5 +88,5 @@ namespace EShop.pages
             clearField(firstNameAndLastNameField);
         }
     }
-    }
+}
 
