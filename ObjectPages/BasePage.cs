@@ -79,7 +79,8 @@ namespace EShop.pages
                 IWebElement element = driver.FindElement(locator);
                 return element.Enabled;       
         }
-            protected string getColor(By locator, string property)
+
+        protected string getColor(By locator, string property)
         {
             IWebElement element = driver.FindElement(locator);
             string cssValue = element.GetCssValue(property);
@@ -170,14 +171,12 @@ namespace EShop.pages
                 }
                 else
                 {
-
                     throw new ArgumentOutOfRangeException(nameof(index), "The provided index is out of range.");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Exception Type: {ex.GetType().Name}");
-
             }
         }
 
@@ -186,11 +185,7 @@ namespace EShop.pages
             try
             {
                 List<IWebElement> webElements = driver.FindElements(locator).ToList();
-                if (webElements.Count == 0)
-                {
-                    return true;
-                }
-                return false;
+                return webElements.Count == 0;
             }
             catch (Exception ex)
             {
@@ -205,6 +200,7 @@ namespace EShop.pages
             js.ExecuteScript("window.scrollBy(0, arguments[0])", pixels);
         }
 
+        // Combined dropdown and hover methods
         protected List<IWebElement> getDropdownOptions(By locator) 
         {
             IWebElement dropdownElement = driver.FindElement(locator);
@@ -235,5 +231,3 @@ namespace EShop.pages
         }
     }
 }
-
-
